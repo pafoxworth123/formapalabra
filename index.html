@@ -3,168 +3,262 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formar Palabras | Buscador Pro Scrabble y Apalabrados</title>
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Formar Palabras con Letras | Buscador Scrabble y Apalabrados</title>
+  <meta name="title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
+  <meta name="description" content="Descifrador de palabras y buscador de jugadas para Scrabble y Apalabrados. Introduce tus letras y comodines para encontrar las mejores palabras y puntuaciones oficiales." />
+  <meta name="keywords" content="formar palabras, descifrador de palabras, buscar palabras con letras, solucionador scrabble, apalabrados trucos, palabras con comodin, anagramas en español" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Spanish" />
+  <link rel="canonical" href="https://formarpalabra.com/" />
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://formarpalabra.com/" />
+  <meta property="og:title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
+  <meta property="og:description" content="Encuentra al instante todas las combinaciones y palabras posibles con tus letras y comodines en español." />
+  <meta property="og:image" content="https://formarpalabra.com/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://formarpalabra.com/" />
+  <meta property="twitter:title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
+  <meta property="twitter:description" content="Descifrador y buscador de palabras para Scrabble en Español y Apalabrados." />
+  <meta property="twitter:image" content="https://formarpalabra.com/og-image.jpg" />
+
+  <!-- Structured Data: WebApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Formar Palabras - Buscador Scrabble y Apalabrados",
+    "url": "https://formarpalabra.com/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "All",
+    "description": "Herramienta gratuita para formar y descifrar palabras con letras desordenadas y comodines en español.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Tailwind CSS & Google Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-game { font-family: 'Fredoka', cursive, sans-serif; }
-    
-    /* Tactile Game Tiles */
-    .wood-tile {
-      background: linear-gradient(145deg, #fef08a, #facc15);
+
+    /* 3D Wood Tile Styling */
+    .rack-tile {
+      background: linear-gradient(145deg, #fef08a, #eab308);
       box-shadow: 0 4px 0 #a16207, 0 6px 12px rgba(0,0,0,0.35);
       border: 1px solid #ca8a04;
+      transition: all 0.12s ease-out;
     }
-    .rack-tile {
-      background: linear-gradient(180deg, #fef9c3 0%, #fde047 100%);
-      box-shadow: 0 4px 0 #ca8a04, 0 6px 10px rgba(0,0,0,0.25);
-      border: 1px solid #eab308;
-      animation: popIn 0.15s ease-out;
+    .rack-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #a16207, 0 10px 16px rgba(0,0,0,0.4);
     }
-    @keyframes popIn {
-      0% { transform: scale(0.7); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
+    .result-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      transition: all 0.15s ease;
     }
-    .card-result {
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      transition: all 0.12s ease;
-    }
-    .card-result:hover {
-      background: rgba(30, 41, 59, 0.9);
+    .result-card:hover {
+      background: rgba(51, 65, 85, 0.9);
       border-color: #facc15;
       transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body class="bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 text-slate-100 min-h-screen flex flex-col items-center px-4 py-8">
 
-  <!-- Top Brand Navigation & Status -->
+  <!-- Header Section -->
   <header class="w-full max-w-3xl text-center mb-6">
-    <div class="inline-flex items-center space-x-2 mb-3 bg-indigo-900/80 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-indigo-300">
+    <div class="inline-flex items-center space-x-2 mb-3 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider text-amber-300 uppercase shadow-inner">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="dictStatus">Cargando Diccionario...</span>
+      <span id="dictStatus">Cargando Léxico Oficial...</span>
     </div>
-    
-    <div class="flex items-center justify-center space-x-3">
-      <div class="w-11 h-11 rounded-2xl wood-tile flex items-center justify-center font-game font-black text-amber-950 text-2xl shadow-lg">
-        F
-      </div>
-      <h1 class="text-4xl sm:text-5xl font-black text-amber-300 tracking-tight font-game drop-shadow-lg">
-        Formar<span class="text-white">Palabras</span>
-      </h1>
-    </div>
-    <p class="text-sm sm:text-base text-slate-300 mt-2 font-bold">
-      Descifrador rápido de fichas para <span class="text-amber-300">Scrabble</span> y <span class="text-emerald-400">Apalabrados</span>
+    <h1 class="text-4xl sm:text-6xl font-black text-amber-400 tracking-tight font-game drop-shadow-[0_4px_12px_rgba(251,191,36,0.3)]">
+      Formar<span class="text-white">Palabras</span>
+    </h1>
+    <p class="text-sm sm:text-base text-slate-300 mt-2 font-bold tracking-wide">
+      Descifrador rápido de jugadas maestras para <span class="text-amber-300 underline decoration-amber-400/50">Scrabble</span> y <span class="text-emerald-400 underline decoration-emerald-400/50">Apalabrados</span>
     </p>
   </header>
 
-  <!-- Main Container -->
-  <main class="w-full max-w-3xl bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl p-6 sm:p-8 space-y-6">
+  <!-- Main Game Panel -->
+  <main class="w-full max-w-3xl space-y-6">
 
-    <!-- Live Tactile Tile Rack -->
-    <div class="space-y-2">
-      <label class="block text-xs font-black uppercase tracking-wider text-amber-300 font-game">
-        Tu Atril de Fichas
-      </label>
-      <div id="visualRack" class="flex flex-wrap gap-2.5 p-3.5 bg-slate-900/90 rounded-2xl border-2 border-indigo-500/30 min-h-[68px] items-center">
-        <span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>
-      </div>
-    </div>
+    <!-- Primary Workspace Card -->
+    <div class="bg-slate-900/80 backdrop-blur-xl rounded-3xl border-2 border-indigo-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-8 space-y-6">
 
-    <!-- Rack Input -->
-    <div class="space-y-2">
-      <div class="flex justify-between items-center">
-        <label for="lettersInput" class="text-xs font-extrabold text-slate-300 uppercase tracking-wider">
-          Ingresa tus Letras
-        </label>
-        <span class="text-xs text-slate-400 font-bold">Usa <code class="bg-white/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">?</code> o <code class="bg-white/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">*</code> para comodines</span>
+      <!-- Interactive Visual Rack -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center px-1">
+          <label class="text-xs font-black uppercase tracking-widest text-amber-400 font-game">Atril en Vivo</label>
+          <span class="text-xs text-slate-400 font-bold">Usa <code class="bg-white/10 text-amber-300 px-1.5 py-0.5 rounded font-mono font-black">?</code> o <code class="bg-white/10 text-amber-300 px-1.5 py-0.5 rounded font-mono font-black">*</code> para comodín</span>
+        </div>
+        
+        <div id="visualRack" class="flex flex-wrap gap-2.5 p-3.5 bg-slate-950/70 rounded-2xl border-2 border-dashed border-indigo-500/20 min-h-[76px] items-center justify-start">
+          <span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>
+        </div>
       </div>
+
+      <!-- Letter Input -->
       <div class="relative">
         <input 
           id="lettersInput" 
           type="text" 
           maxlength="15"
-          placeholder="EJ. CASAS??" 
-          class="w-full text-2xl sm:text-3xl font-extrabold uppercase tracking-widest px-5 py-4 bg-slate-900/90 border-2 border-indigo-500/50 rounded-2xl focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 focus:outline-none placeholder-slate-600 text-amber-200 transition"
+          placeholder="ESCRIBE TUS LETRAS (EJ. ARBOL??)" 
+          class="w-full text-2xl sm:text-3xl font-black uppercase tracking-widest px-5 py-4 bg-slate-950 border-2 border-indigo-500/40 rounded-2xl focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 focus:outline-none placeholder-slate-600 text-amber-300 transition duration-150"
           autocomplete="off"
         />
-        <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-black px-3 py-2 rounded-xl transition">
+        <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-black text-xs px-3.5 py-2 rounded-xl transition border border-slate-700">
           BORRAR
         </button>
       </div>
-    </div>
 
-    <!-- Advanced Filter Controls -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <div>
-        <label for="startsWithInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Empieza por</label>
-        <input id="startsWithInput" type="text" placeholder="Ej. C" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
-      </div>
-      <div>
-        <label for="containsInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Contiene</label>
-        <input id="containsInput" type="text" placeholder="Ej. RR" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
-      </div>
-      <div>
-        <label for="endsWithInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Termina en</label>
-        <input id="endsWithInput" type="text" placeholder="Ej. ON" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
-      </div>
-    </div>
-
-    <!-- Search Action Button -->
-    <button 
-      id="searchBtn" 
-      class="w-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 hover:from-amber-300 hover:to-amber-300 text-slate-950 font-black text-xl py-4 px-6 rounded-2xl transition duration-150 shadow-xl shadow-amber-500/20 active:translate-y-0.5 font-game flex items-center justify-center space-x-2"
-    >
-      <span>BUSCAR JUGADAS</span>
-    </button>
-
-    <!-- Results Section -->
-    <div id="resultsSection" class="mt-8 border-t border-white/10 pt-6 hidden space-y-6">
-      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+      <!-- Advanced Match Filters -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div>
-          <h2 class="text-xl font-black text-white font-game">Jugadas Disponibles</h2>
-          <p class="text-xs text-slate-400 font-semibold">Haz clic en una palabra para consultar la definición en la RAE</p>
+          <label for="startsWithInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Empieza por</label>
+          <input id="startsWithInput" type="text" placeholder="Ej. DES" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
         </div>
-        <span id="resultsCount" class="text-xs font-black bg-amber-400 text-slate-950 px-3 py-1.5 rounded-full font-game uppercase">0 jugadas</span>
+        <div>
+          <label for="containsInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Contiene</label>
+          <input id="containsInput" type="text" placeholder="Ej. RR" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
+        </div>
+        <div>
+          <label for="endsWithInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Termina en</label>
+          <input id="endsWithInput" type="text" placeholder="Ej. ON" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
+        </div>
       </div>
 
-      <div id="resultsList" class="space-y-6">
-        <!-- Results injected dynamically -->
+      <!-- Submit Action Button -->
+      <button 
+        id="searchBtn" 
+        class="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xl py-4 rounded-2xl transition duration-150 shadow-[0_8px_25px_rgba(245,158,11,0.3)] active:translate-y-0.5 font-game flex items-center justify-center space-x-2"
+      >
+        <span>BUSCAR COMBINACIONES</span>
+      </button>
+
+      <!-- Results Section -->
+      <div id="resultsSection" class="border-t border-white/10 pt-6 hidden space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-white/5">
+          <div>
+            <h2 class="text-xl font-black text-white font-game">Jugadas Válidas</h2>
+            <p class="text-xs text-slate-400 font-semibold">Ordenadas por puntuación oficial</p>
+          </div>
+          <span id="resultsCount" class="text-xs font-black bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full uppercase tracking-wider font-game">
+            0 jugadas
+          </span>
+        </div>
+
+        <div id="resultsList" class="space-y-8">
+          <!-- Results injected dynamically -->
+        </div>
       </div>
+
     </div>
+
+    <!-- SEO & Educational Content Section (Below the fold) -->
+    <article class="w-full bg-slate-900/50 backdrop-blur border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 text-slate-300 text-sm leading-relaxed">
+      
+      <header>
+        <h2 class="text-xl font-black text-amber-400 font-game mb-2">
+          ¿Cómo usar el buscador para formar palabras?
+        </h2>
+        <p>
+          Nuestra herramienta te ayuda a encontrar todas las palabras válidas que puedes formar con un conjunto de letras dado. Está optimizada específicamente para el léxico oficial de <strong>Scrabble en Español (FISE)</strong> y <strong>Apalabrados</strong>.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
+          <h3 class="font-bold text-white text-base">Uso de Comodines (? o *)</h3>
+          <p class="text-xs text-slate-400">
+            Si tienes fichas en blanco (comodines), introduce el símbolo <code>?</code> o <code>*</code>. El buscador probará automáticamente todas las letras del abecedario para encontrar la jugada de mayor puntaje.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
+          <h3 class="font-bold text-white text-base">Fichas Especiales (LL, RR, CH, Ñ)</h3>
+          <p class="text-xs text-slate-400">
+            En el Scrabble en español, dígrafos como <strong>LL</strong> y <strong>RR</strong> cuentan como fichas individuales de 8 puntos. Nuestro sistema calcula automáticamente estos valores especiales.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <section class="space-y-4 pt-4 border-t border-white/5">
+        <h3 class="text-base font-bold text-white font-game uppercase tracking-wider">Preguntas Frecuentes</h3>
+        
+        <details class="group bg-slate-950/40 rounded-xl p-4 border border-slate-800 cursor-pointer">
+          <summary class="font-bold text-slate-200 list-none flex justify-between items-center">
+            <span>¿Qué diccionario utiliza este descifrador?</span>
+            <span class="text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-2">
+            Utiliza la base léxica estándar del español respaldada por la Real Academia Española (RAE) y las listas de competencia oficiales de la FISE (Federación Internacional de Scrabble en Español).
+          </p>
+        </details>
+
+        <details class="group bg-slate-950/40 rounded-xl p-4 border border-slate-800 cursor-pointer">
+          <summary class="font-bold text-slate-200 list-none flex justify-between items-center">
+            <span>¿Cómo ganar más puntos en Apalabrados y Scrabble?</span>
+            <span class="text-amber-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-xs text-slate-400 mt-2">
+            Aprovecha siempre las casillas de Doble y Triple Tanto de Letra usando fichas de alto valor como la <strong>Z (10 pts)</strong>, <strong>Ñ (8 pts)</strong>, o <strong>X (8 pts)</strong>, y busca colocar palabras cortas de 2 letras que conecten múltiples líneas a la vez.
+          </p>
+        </details>
+      </section>
+
+    </article>
+
+    <!-- Scoring Key / Cheatsheet Card -->
+    <section class="w-full bg-slate-900/50 backdrop-blur border border-white/10 rounded-3xl p-6 sm:p-7 space-y-4">
+      <h3 class="text-xs font-black uppercase tracking-widest text-amber-400 font-game">Puntuación Oficial de Fichas Clave</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">Z</div>
+          <div><p class="font-black text-white text-sm">10 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
+        </div>
+        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">Ñ</div>
+          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
+        </div>
+        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">X / J</div>
+          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 c/u</p></div>
+        </div>
+        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-sm font-game">LL/RR</div>
+          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">Doble ficha</p></div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Reference Cheat Sheet -->
-  <section class="w-full max-w-3xl mt-6 bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-sm space-y-3">
-    <h3 class="text-xs font-black uppercase tracking-wider text-amber-300 font-game">Fichas Clave de Mayor Puntuación en Español</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">Z</div>
-        <div><p class="font-extrabold text-white">10 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
-      </div>
-      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">Ñ</div>
-        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
-      </div>
-      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">X / J</div>
-        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 de c/u</p></div>
-      </div>
-      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">LL / RR</div>
-        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">Fichas dobles</p></div>
-      </div>
-    </div>
-  </section>
+  <footer class="mt-8 py-4 text-center text-xs text-slate-500">
+    <p>© 2026 FormarPalabras. Buscador de anagramas y validador léxico para Scrabble y Apalabrados.</p>
+  </footer>
 
-  <!-- JavaScript Engine -->
+  <!-- Application Logic -->
   <script>
-    const LETTER_SCORES = {
+    const SCORES_SCRABBLE = {
       'A': 1, 'E': 1, 'O': 1, 'I': 1, 'S': 1, 'N': 1, 'L': 1, 'R': 1, 'U': 1, 'T': 1,
       'D': 2, 'G': 2,
       'C': 3, 'B': 3, 'M': 3, 'P': 3,
@@ -176,24 +270,18 @@
 
     let DICTIONARY = [];
 
-    // Load External Word List
-    async function loadDictionary() {
+    async function initDictionary() {
       const status = document.getElementById('dictStatus');
-      const searchBtn = document.getElementById('searchBtn');
-      searchBtn.disabled = true;
-
       try {
         const res = await fetch('./words.json');
         DICTIONARY = await res.json();
-        status.textContent = `${DICTIONARY.length.toLocaleString()} Palabras Listas`;
-        searchBtn.disabled = false;
+        status.textContent = `${DICTIONARY.length.toLocaleString()} PALABRAS CARGADAS`;
       } catch(e) {
-        status.textContent = 'Modo Local Activo';
+        status.textContent = `MODO PRUEBA ACTIVO`;
         DICTIONARY = ["ARBOL", "PERRO", "GATO", "CASA", "BARCO", "ZAPATO", "QUESO", "LLAVE", "AMOR", "VIDA"];
-        searchBtn.disabled = false;
       }
     }
-    loadDictionary();
+    initDictionary();
 
     function tokenize(str) {
       const tokens = [];
@@ -213,7 +301,7 @@
     }
 
     function getWordScore(word) {
-      return tokenize(word).reduce((acc, t) => acc + (LETTER_SCORES[t] || 0), 0);
+      return tokenize(word).reduce((acc, t) => acc + (SCORES_SCRABBLE[t] || 0), 0);
     }
 
     function getTokenCounts(str) {
@@ -235,7 +323,7 @@
       visualRack.innerHTML = '';
 
       if (!val) {
-        visualRack.innerHTML = '<span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>';
+        visualRack.innerHTML = '<span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>';
         return;
       }
 
@@ -245,8 +333,8 @@
         const tile = document.createElement('div');
         tile.className = 'w-11 h-12 rack-tile rounded-xl flex flex-col items-center justify-center font-game font-black text-slate-950 relative select-none';
         tile.innerHTML = `
-          <span class="text-base leading-none">${isWild ? '★' : tok}</span>
-          <span class="text-[9px] absolute bottom-1 right-1.5 font-black text-amber-950/80">${isWild ? '0' : (LETTER_SCORES[tok] || 0)}</span>
+          <span class="text-base">${isWild ? '★' : tok}</span>
+          <span class="text-[9px] absolute bottom-1 right-1.5 font-black text-amber-950/90">${isWild ? '0' : (SCORES_SCRABBLE[tok] || 0)}</span>
         `;
         visualRack.appendChild(tile);
       });
@@ -254,13 +342,13 @@
 
     clearBtn.addEventListener('click', () => {
       lettersInput.value = '';
-      visualRack.innerHTML = '<span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>';
+      visualRack.innerHTML = '<span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>';
       clearBtn.classList.add('hidden');
       lettersInput.focus();
     });
 
-    // Solver Search
-    function performSearch() {
+    // Solve Action
+    function solve() {
       const rawRack = lettersInput.value.trim().toUpperCase();
       if (!rawRack || DICTIONARY.length === 0) return;
 
@@ -304,7 +392,7 @@
       resultsCount.textContent = `${matches.length} jugadas`;
 
       if (matches.length === 0) {
-        resultsList.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-bold">No se encontraron combinaciones válidas.</div>';
+        resultsList.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-bold">No se encontraron palabras válidas con estas letras y filtros.</div>';
         resultsSection.classList.remove('hidden');
         return;
       }
@@ -321,10 +409,10 @@
         groupContainer.className = 'space-y-3';
 
         groupContainer.innerHTML = `
-          <div class="flex items-center space-x-2">
-            <span class="text-xs font-black uppercase text-amber-300 tracking-wider font-game">Palabras de ${len} Letras</span>
+          <div class="flex items-center space-x-3">
+            <span class="text-xs font-black uppercase text-amber-400 tracking-wider font-game">${len} Letras</span>
             <span class="h-[1px] flex-1 bg-white/10"></span>
-            <span class="text-[11px] font-bold text-slate-400">${grouped[len].length} palabras</span>
+            <span class="text-[11px] font-bold text-slate-400">${grouped[len].length} opciones</span>
           </div>
         `;
 
@@ -335,13 +423,16 @@
           const score = getWordScore(word);
           const raeUrl = `https://dle.rae.es/${encodeURIComponent(word.toLowerCase())}`;
 
-          const card = document.createElement('div');
-          card.className = 'card-result flex items-center justify-between p-3 rounded-2xl group cursor-pointer';
+          const card = document.createElement('a');
+          card.href = raeUrl;
+          card.target = '_blank';
+          card.title = 'Ver significado en la RAE';
+          card.className = 'result-card flex items-center justify-between p-3 rounded-2xl text-decoration-none group';
           card.innerHTML = `
-            <a href="${raeUrl}" target="_blank" class="font-extrabold text-white group-hover:text-amber-300 truncate pr-2 text-base tracking-wide" title="Ver en RAE">
+            <span class="font-black text-slate-100 group-hover:text-amber-300 truncate pr-2 text-sm tracking-wider">
               ${word}
-            </a>
-            <span class="text-xs font-black px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 shadow font-game shrink-0">
+            </span>
+            <span class="text-xs font-black px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 shadow-sm shrink-0 font-game">
               ${score}
             </span>
           `;
@@ -355,8 +446,8 @@
       resultsSection.classList.remove('hidden');
     }
 
-    document.getElementById('searchBtn').addEventListener('click', performSearch);
-    lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') performSearch(); });
+    document.getElementById('searchBtn').addEventListener('click', solve);
+    lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') solve(); });
   </script>
 </body>
 </html>
