@@ -3,164 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formar Palabras | Buscador Pro para Scrabble y Apalabrados</title>
+  <title>Formar Palabras | Buscador Pro Scrabble y Apalabrados</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-display { font-family: 'Outfit', sans-serif; }
+    .font-game { font-family: 'Fredoka', cursive, sans-serif; }
     
+    /* Tactile Game Tiles */
     .wood-tile {
-      background: radial-gradient(circle at 30% 30%, #fef3c7, #fde047);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 3px 0 #b45309, 0 4px 6px rgba(0,0,0,0.1);
-      border: 1px solid #d97706;
+      background: linear-gradient(145deg, #fef08a, #facc15);
+      box-shadow: 0 4px 0 #a16207, 0 6px 12px rgba(0,0,0,0.35);
+      border: 1px solid #ca8a04;
     }
     .rack-tile {
       background: linear-gradient(180deg, #fef9c3 0%, #fde047 100%);
-      box-shadow: 0 4px 0 #ca8a04, 0 6px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 0 #ca8a04, 0 6px 10px rgba(0,0,0,0.25);
       border: 1px solid #eab308;
+      animation: popIn 0.15s ease-out;
     }
-    .tile-slot {
-      background: rgba(0, 0, 0, 0.04);
-      border: 2px dashed #cbd5e1;
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .card-result {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.12s ease;
+    }
+    .card-result:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: #facc15;
+      transform: translateY(-2px);
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col items-center">
+<body class="bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 text-slate-100 min-h-screen flex flex-col items-center px-4 py-8">
 
-  <!-- Top Navigation Bar -->
-  <nav class="w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <div class="w-9 h-9 rounded-xl wood-tile flex items-center justify-center font-display font-black text-amber-900 text-lg shadow-sm">
-          F
-        </div>
-        <span class="text-xl font-extrabold text-slate-900 tracking-tight font-display">Formar<span class="text-blue-600">Palabras</span></span>
+  <!-- Top Brand Navigation & Status -->
+  <header class="w-full max-w-3xl text-center mb-6">
+    <div class="inline-flex items-center space-x-2 mb-3 bg-indigo-900/80 border border-indigo-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-indigo-300">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span id="dictStatus">Cargando Diccionario...</span>
+    </div>
+    
+    <div class="flex items-center justify-center space-x-3">
+      <div class="w-11 h-11 rounded-2xl wood-tile flex items-center justify-center font-game font-black text-amber-950 text-2xl shadow-lg">
+        F
       </div>
-      <div class="flex items-center space-x-3 text-xs font-semibold">
-        <span id="dictStatus" class="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
-          Diccionario FISE / RAE
-        </span>
+      <h1 class="text-4xl sm:text-5xl font-black text-amber-300 tracking-tight font-game drop-shadow-lg">
+        Formar<span class="text-white">Palabras</span>
+      </h1>
+    </div>
+    <p class="text-sm sm:text-base text-slate-300 mt-2 font-bold">
+      Descifrador rápido de fichas para <span class="text-amber-300">Scrabble</span> y <span class="text-emerald-400">Apalabrados</span>
+    </p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-3xl bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl p-6 sm:p-8 space-y-6">
+
+    <!-- Live Tactile Tile Rack -->
+    <div class="space-y-2">
+      <label class="block text-xs font-black uppercase tracking-wider text-amber-300 font-game">
+        Tu Atril de Fichas
+      </label>
+      <div id="visualRack" class="flex flex-wrap gap-2.5 p-3.5 bg-slate-900/90 rounded-2xl border-2 border-indigo-500/30 min-h-[68px] items-center">
+        <span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>
       </div>
     </div>
-  </nav>
 
-  <!-- Hero & Tool Container -->
-  <main class="w-full max-w-4xl px-4 py-8 space-y-6">
-
-    <!-- Game Preset Tabs -->
-    <div class="flex justify-center">
-      <div class="inline-flex bg-slate-200/80 p-1.5 rounded-2xl space-x-1 text-xs font-bold text-slate-600 shadow-inner">
-        <button id="modeScrabble" class="px-4 py-2 rounded-xl bg-white text-slate-900 shadow-sm transition">Scrabble Español</button>
-        <button id="modeApalabrados" class="px-4 py-2 rounded-xl hover:text-slate-900 transition">Apalabrados</button>
+    <!-- Rack Input -->
+    <div class="space-y-2">
+      <div class="flex justify-between items-center">
+        <label for="lettersInput" class="text-xs font-extrabold text-slate-300 uppercase tracking-wider">
+          Ingresa tus Letras
+        </label>
+        <span class="text-xs text-slate-400 font-bold">Usa <code class="bg-white/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">?</code> o <code class="bg-white/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">*</code> para comodines</span>
       </div>
-    </div>
-
-    <!-- Main Workspace -->
-    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-      <div class="p-6 sm:p-8 space-y-6">
-
-        <!-- Live Visual Tile Rack -->
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Atril de Fichas</label>
-          <div id="visualRack" class="flex flex-wrap gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-200 min-h-[64px] items-center">
-            <!-- Dynamic Tiles Generated Here -->
-            <span class="text-xs text-slate-400 italic px-2">Escribe tus letras abajo para ver tu atril...</span>
-          </div>
-        </div>
-
-        <!-- Input Bar -->
-        <div class="relative">
-          <input 
-            id="lettersInput" 
-            type="text" 
-            maxlength="15"
-            placeholder="Escribe tus letras (ej. ARBOL??)" 
-            class="w-full text-xl sm:text-2xl font-bold uppercase tracking-wider px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-100 focus:outline-none transition placeholder-slate-400"
-            autocomplete="off"
-          />
-          <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-lg transition">
-            BORRAR
-          </button>
-        </div>
-
-        <!-- Advanced Filter Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div>
-            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Empieza por</label>
-            <input id="startsWithInput" type="text" placeholder="Ej. DES" class="w-full uppercase px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:border-blue-600 focus:outline-none focus:bg-white" />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Contiene</label>
-            <input id="containsInput" type="text" placeholder="Ej. RR" class="w-full uppercase px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:border-blue-600 focus:outline-none focus:bg-white" />
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Termina en</label>
-            <input id="endsWithInput" type="text" placeholder="Ej. ON" class="w-full uppercase px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:border-blue-600 focus:outline-none focus:bg-white" />
-          </div>
-        </div>
-
-        <!-- Submit Button -->
-        <button 
-          id="searchBtn" 
-          class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-extrabold text-lg py-4 rounded-2xl transition shadow-lg shadow-blue-600/20 font-display flex items-center justify-center space-x-2"
-        >
-          <span>BUSCAR COMBINACIONES</span>
+      <div class="relative">
+        <input 
+          id="lettersInput" 
+          type="text" 
+          maxlength="15"
+          placeholder="EJ. CASAS??" 
+          class="w-full text-2xl sm:text-3xl font-extrabold uppercase tracking-widest px-5 py-4 bg-slate-900/90 border-2 border-indigo-500/50 rounded-2xl focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 focus:outline-none placeholder-slate-600 text-amber-200 transition"
+          autocomplete="off"
+        />
+        <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-black px-3 py-2 rounded-xl transition">
+          BORRAR
         </button>
-
-      </div>
-
-      <!-- Results Area -->
-      <div id="resultsSection" class="border-t border-slate-100 bg-slate-50/50 p-6 sm:p-8 hidden">
-        <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-200">
-          <div>
-            <h2 class="text-xl font-black text-slate-900 font-display">Jugadas Encontradas</h2>
-            <p class="text-xs text-slate-500">Ordenadas por puntuación oficial</p>
-          </div>
-          <span id="resultsCount" class="text-sm font-black bg-blue-100 text-blue-800 px-3.5 py-1.5 rounded-full font-display">0 jugadas</span>
-        </div>
-
-        <div id="resultsList" class="space-y-8">
-          <!-- Results injected dynamically -->
-        </div>
       </div>
     </div>
 
-    <!-- Quick Reference Cheatsheet (SEO & Practical Use) -->
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
-      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 font-display">Fichas Clave de Mayor Puntuación en Español</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-        <div class="flex items-center space-x-2 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60">
-          <div class="w-7 h-7 wood-tile rounded-lg flex items-center justify-center font-bold text-amber-950">Z</div>
-          <div><p class="font-bold text-slate-900">10 Puntos</p><p class="text-[10px] text-slate-500">1 ficha</p></div>
-        </div>
-        <div class="flex items-center space-x-2 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60">
-          <div class="w-7 h-7 wood-tile rounded-lg flex items-center justify-center font-bold text-amber-950">Ñ</div>
-          <div><p class="font-bold text-slate-900">8 Puntos</p><p class="text-[10px] text-slate-500">1 ficha</p></div>
-        </div>
-        <div class="flex items-center space-x-2 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60">
-          <div class="w-7 h-7 wood-tile rounded-lg flex items-center justify-center font-bold text-amber-950">X / J</div>
-          <div><p class="font-bold text-slate-900">8 Puntos</p><p class="text-[10px] text-slate-500">1 de c/u</p></div>
-        </div>
-        <div class="flex items-center space-x-2 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200/60">
-          <div class="w-7 h-7 wood-tile rounded-lg flex items-center justify-center font-bold text-amber-950">LL / RR</div>
-          <div><p class="font-bold text-slate-900">8 Puntos</p><p class="text-[10px] text-slate-500">Fichas dobles</p></div>
-        </div>
+    <!-- Advanced Filter Controls -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div>
+        <label for="startsWithInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Empieza por</label>
+        <input id="startsWithInput" type="text" placeholder="Ej. C" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
       </div>
-    </section>
+      <div>
+        <label for="containsInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Contiene</label>
+        <input id="containsInput" type="text" placeholder="Ej. RR" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
+      </div>
+      <div>
+        <label for="endsWithInput" class="block text-[11px] font-black uppercase text-slate-300 mb-1">Termina en</label>
+        <input id="endsWithInput" type="text" placeholder="Ej. ON" class="w-full uppercase px-3.5 py-2.5 bg-slate-900/70 border border-slate-700 rounded-xl text-sm font-bold focus:border-amber-400 focus:outline-none text-white placeholder-slate-600" />
+      </div>
+    </div>
+
+    <!-- Search Action Button -->
+    <button 
+      id="searchBtn" 
+      class="w-full bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400 hover:from-amber-300 hover:to-amber-300 text-slate-950 font-black text-xl py-4 px-6 rounded-2xl transition duration-150 shadow-xl shadow-amber-500/20 active:translate-y-0.5 font-game flex items-center justify-center space-x-2"
+    >
+      <span>BUSCAR JUGADAS</span>
+    </button>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="mt-8 border-t border-white/10 pt-6 hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <h2 class="text-xl font-black text-white font-game">Jugadas Disponibles</h2>
+          <p class="text-xs text-slate-400 font-semibold">Haz clic en una palabra para consultar la definición en la RAE</p>
+        </div>
+        <span id="resultsCount" class="text-xs font-black bg-amber-400 text-slate-950 px-3 py-1.5 rounded-full font-game uppercase">0 jugadas</span>
+      </div>
+
+      <div id="resultsList" class="space-y-6">
+        <!-- Results injected dynamically -->
+      </div>
+    </div>
 
   </main>
 
-  <footer class="mt-auto py-8 text-center text-xs text-slate-400">
-    <p>© 2026 FormarPalabras. Buscador de anagramas y validador léxico para Scrabble y Apalabrados.</p>
-  </footer>
+  <!-- Reference Cheat Sheet -->
+  <section class="w-full max-w-3xl mt-6 bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-sm space-y-3">
+    <h3 class="text-xs font-black uppercase tracking-wider text-amber-300 font-game">Fichas Clave de Mayor Puntuación en Español</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">Z</div>
+        <div><p class="font-extrabold text-white">10 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
+      </div>
+      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">Ñ</div>
+        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
+      </div>
+      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">X / J</div>
+        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">1 de c/u</p></div>
+      </div>
+      <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="w-8 h-8 wood-tile rounded-xl flex items-center justify-center font-black text-amber-950 font-game text-sm">LL / RR</div>
+        <div><p class="font-extrabold text-white">8 Puntos</p><p class="text-[10px] text-slate-400 font-bold">Fichas dobles</p></div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Application Logic -->
+  <!-- JavaScript Engine -->
   <script>
-    const SCORES_SCRABBLE = {
+    const LETTER_SCORES = {
       'A': 1, 'E': 1, 'O': 1, 'I': 1, 'S': 1, 'N': 1, 'L': 1, 'R': 1, 'U': 1, 'T': 1,
       'D': 2, 'G': 2,
       'C': 3, 'B': 3, 'M': 3, 'P': 3,
@@ -170,22 +174,26 @@
       'Z': 10
     };
 
-    let activeScores = SCORES_SCRABBLE;
     let DICTIONARY = [];
 
-    // Load Lexicon
-    async function initDictionary() {
+    // Load External Word List
+    async function loadDictionary() {
       const status = document.getElementById('dictStatus');
+      const searchBtn = document.getElementById('searchBtn');
+      searchBtn.disabled = true;
+
       try {
         const res = await fetch('./words.json');
         DICTIONARY = await res.json();
-        status.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> ${DICTIONARY.length.toLocaleString()} Palabras Listas`;
+        status.textContent = `${DICTIONARY.length.toLocaleString()} Palabras Listas`;
+        searchBtn.disabled = false;
       } catch(e) {
-        status.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span> Modo Local Activo`;
+        status.textContent = 'Modo Local Activo';
         DICTIONARY = ["ARBOL", "PERRO", "GATO", "CASA", "BARCO", "ZAPATO", "QUESO", "LLAVE", "AMOR", "VIDA"];
+        searchBtn.disabled = false;
       }
     }
-    initDictionary();
+    loadDictionary();
 
     function tokenize(str) {
       const tokens = [];
@@ -205,7 +213,7 @@
     }
 
     function getWordScore(word) {
-      return tokenize(word).reduce((acc, t) => acc + (activeScores[t] || 0), 0);
+      return tokenize(word).reduce((acc, t) => acc + (LETTER_SCORES[t] || 0), 0);
     }
 
     function getTokenCounts(str) {
@@ -216,7 +224,7 @@
       return counts;
     }
 
-    // Dynamic Visual Rack Updater
+    // Dynamic Live Rack
     const lettersInput = document.getElementById('lettersInput');
     const visualRack = document.getElementById('visualRack');
     const clearBtn = document.getElementById('clearBtn');
@@ -227,7 +235,7 @@
       visualRack.innerHTML = '';
 
       if (!val) {
-        visualRack.innerHTML = '<span class="text-xs text-slate-400 italic px-2">Escribe tus letras abajo para ver tu atril...</span>';
+        visualRack.innerHTML = '<span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>';
         return;
       }
 
@@ -235,10 +243,10 @@
       tokens.forEach(tok => {
         const isWild = tok === '?' || tok === '*';
         const tile = document.createElement('div');
-        tile.className = 'w-11 h-12 rack-tile rounded-xl flex flex-col items-center justify-center font-display font-extrabold text-slate-900 relative select-none animate-scale';
+        tile.className = 'w-11 h-12 rack-tile rounded-xl flex flex-col items-center justify-center font-game font-black text-slate-950 relative select-none';
         tile.innerHTML = `
-          <span class="text-base">${isWild ? '★' : tok}</span>
-          <span class="text-[9px] absolute bottom-1 right-1.5 font-bold text-amber-950/80">${isWild ? '0' : (activeScores[tok] || 0)}</span>
+          <span class="text-base leading-none">${isWild ? '★' : tok}</span>
+          <span class="text-[9px] absolute bottom-1 right-1.5 font-black text-amber-950/80">${isWild ? '0' : (LETTER_SCORES[tok] || 0)}</span>
         `;
         visualRack.appendChild(tile);
       });
@@ -246,13 +254,13 @@
 
     clearBtn.addEventListener('click', () => {
       lettersInput.value = '';
-      visualRack.innerHTML = '<span class="text-xs text-slate-400 italic px-2">Escribe tus letras abajo para ver tu atril...</span>';
+      visualRack.innerHTML = '<span class="text-xs text-slate-500 font-bold italic px-2">Escribe tus letras abajo para llenar tu atril...</span>';
       clearBtn.classList.add('hidden');
       lettersInput.focus();
     });
 
-    // Search Engine
-    function solve() {
+    // Solver Search
+    function performSearch() {
       const rawRack = lettersInput.value.trim().toUpperCase();
       if (!rawRack || DICTIONARY.length === 0) return;
 
@@ -296,12 +304,11 @@
       resultsCount.textContent = `${matches.length} jugadas`;
 
       if (matches.length === 0) {
-        resultsList.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-semibold">No se encontraron combinaciones válidas con estas letras y filtros.</div>';
+        resultsList.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-bold">No se encontraron combinaciones válidas.</div>';
         resultsSection.classList.remove('hidden');
         return;
       }
 
-      // Group by tile count
       const grouped = {};
       matches.forEach(w => {
         const len = tokenize(w).length;
@@ -315,8 +322,8 @@
 
         groupContainer.innerHTML = `
           <div class="flex items-center space-x-2">
-            <span class="text-xs font-black uppercase text-slate-400 tracking-wider">${len} Letras</span>
-            <span class="h-[1px] flex-1 bg-slate-200"></span>
+            <span class="text-xs font-black uppercase text-amber-300 tracking-wider font-game">Palabras de ${len} Letras</span>
+            <span class="h-[1px] flex-1 bg-white/10"></span>
             <span class="text-[11px] font-bold text-slate-400">${grouped[len].length} palabras</span>
           </div>
         `;
@@ -329,12 +336,12 @@
           const raeUrl = `https://dle.rae.es/${encodeURIComponent(word.toLowerCase())}`;
 
           const card = document.createElement('div');
-          card.className = 'flex items-center justify-between p-2.5 bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition group';
+          card.className = 'card-result flex items-center justify-between p-3 rounded-2xl group cursor-pointer';
           card.innerHTML = `
-            <a href="${raeUrl}" target="_blank" class="font-display font-extrabold text-slate-800 group-hover:text-blue-600 truncate pr-2 text-sm tracking-wide" title="Ver en RAE">
+            <a href="${raeUrl}" target="_blank" class="font-extrabold text-white group-hover:text-amber-300 truncate pr-2 text-base tracking-wide" title="Ver en RAE">
               ${word}
             </a>
-            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 shrink-0">
+            <span class="text-xs font-black px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 shadow font-game shrink-0">
               ${score}
             </span>
           `;
@@ -348,8 +355,8 @@
       resultsSection.classList.remove('hidden');
     }
 
-    document.getElementById('searchBtn').addEventListener('click', solve);
-    lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') solve(); });
+    document.getElementById('searchBtn').addEventListener('click', performSearch);
+    lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') performSearch(); });
   </script>
 </body>
 </html>
