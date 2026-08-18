@@ -3,140 +3,202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Descifrador de Palabras | Buscador Scrabble y Apalabrados</title>
+  <title>Formar Palabras | Buscador Scrabble & Apalabrados</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for Game Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-game { font-family: 'Fredoka', cursive, sans-serif; }
+    .scrabble-tile {
+      background: linear-gradient(145deg, #fef3c7, #fde68a);
+      box-shadow: 0 4px 0 #d97706, 0 5px 8px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .scrabble-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #d97706, 0 8px 12px rgba(0,0,0,0.2);
+    }
+    .scrabble-tile:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #d97706, 0 3px 4px rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col items-center p-4">
+<body class="bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-slate-100 min-h-screen flex flex-col items-center px-4 py-8">
 
-  <header class="w-full max-w-2xl text-center py-6">
-    <h1 class="text-3xl font-extrabold text-blue-700 tracking-tight">FormarPalabras</h1>
-    <p class="text-sm text-slate-500 mt-1">Buscador y descifrador de palabras para Scrabble y Apalabrados</p>
+  <!-- Top Brand Navigation -->
+  <header class="w-full max-w-2xl text-center mb-6">
+    <div class="inline-flex items-center space-x-1.5 mb-2 bg-indigo-900/60 border border-indigo-700/50 px-3 py-1 rounded-full text-xs font-semibold text-indigo-300">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>Diccionario Oficial Español Activo</span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-black text-amber-300 tracking-tight font-game drop-shadow-md">
+      Formar<span class="text-white">Palabras</span>
+    </h1>
+    <p class="text-sm sm:text-base text-slate-300 mt-2 font-medium">
+      Descifrador rápido de fichas para <span class="text-amber-300 font-semibold">Scrabble</span> y <span class="text-emerald-400 font-semibold">Apalabrados</span>
+    </p>
   </header>
 
-  <main class="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+  <!-- Main Interaction Card -->
+  <main class="w-full max-w-2xl bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl p-6 sm:p-8 space-y-6">
     
-    <div class="space-y-4">
-      <div>
-        <label for="lettersInput" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">
-          Tus Letras (Usa ? o * para comodines)
+    <!-- Primary Rack Input Area -->
+    <div class="space-y-2">
+      <div class="flex justify-between items-center">
+        <label for="lettersInput" class="text-xs font-bold text-amber-300 uppercase tracking-wider">
+          Tus Letras / Fichas
         </label>
+        <span class="text-xs text-slate-300 font-medium">Usa <code class="bg-white/20 text-white px-1.5 py-0.5 rounded font-mono font-bold">?</code> o <code class="bg-white/20 text-white px-1.5 py-0.5 rounded font-mono font-bold">*</code> para comodín</span>
+      </div>
+      <div class="relative">
         <input 
           id="lettersInput" 
           type="text" 
-          placeholder="Ej. ARBOL??" 
-          class="w-full text-xl font-bold uppercase tracking-widest px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none placeholder-slate-300 transition"
+          placeholder="EJ. CASAS??" 
+          class="w-full text-2xl sm:text-3xl font-extrabold uppercase tracking-widest px-5 py-4 bg-slate-900/80 border-2 border-indigo-500/40 rounded-2xl focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 focus:outline-none placeholder-slate-500 text-amber-200 transition"
           autocomplete="off"
         />
+        <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs bg-slate-800 hover:bg-slate-700 px-2.5 py-1.5 rounded-lg transition">
+          Limpiar
+        </button>
       </div>
-
-      <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label for="startsWithInput" class="block text-xs font-medium text-slate-500 mb-1">Empieza con (opcional)</label>
-          <input 
-            id="startsWithInput" 
-            type="text" 
-            placeholder="Ej. C" 
-            class="w-full uppercase px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-1 focus:ring-blue-600 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label for="containsInput" class="block text-xs font-medium text-slate-500 mb-1">Contiene (opcional)</label>
-          <input 
-            id="containsInput" 
-            type="text" 
-            placeholder="Ej. LA" 
-            class="w-full uppercase px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-1 focus:ring-blue-600 focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <button 
-        id="searchBtn" 
-        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-150 shadow-sm flex items-center justify-center space-x-2"
-      >
-        <span>Buscar Palabras</span>
-      </button>
     </div>
 
-    <div id="resultsContainer" class="mt-8 border-t border-slate-100 pt-6 hidden">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-base font-semibold text-slate-700">Palabras Encontradas</h2>
-        <span id="resultsCount" class="text-xs bg-blue-50 text-blue-700 font-bold px-2 py-1 rounded-full">0 palabras</span>
+    <!-- Advanced Match Filters -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="startsWithInput" class="block text-xs font-semibold text-slate-300 mb-1">Empieza con (opcional)</label>
+        <input 
+          id="startsWithInput" 
+          type="text" 
+          placeholder="Ej. C" 
+          class="w-full uppercase px-4 py-2.5 bg-slate-900/60 border border-slate-700 rounded-xl text-sm font-semibold focus:border-amber-400 focus:outline-none text-white placeholder-slate-500"
+        />
+      </div>
+      <div>
+        <label for="containsInput" class="block text-xs font-semibold text-slate-300 mb-1">Contiene (opcional)</label>
+        <input 
+          id="containsInput" 
+          type="text" 
+          placeholder="Ej. LA" 
+          class="w-full uppercase px-4 py-2.5 bg-slate-900/60 border border-slate-700 rounded-xl text-sm font-semibold focus:border-amber-400 focus:outline-none text-white placeholder-slate-500"
+        />
+      </div>
+    </div>
+
+    <!-- Search Action Button -->
+    <button 
+      id="searchBtn" 
+      class="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-lg py-4 px-6 rounded-2xl transition duration-150 shadow-lg shadow-amber-500/20 active:translate-y-0.5 font-game flex items-center justify-center space-x-2"
+    >
+      <span>BUSCAR JUGADAS</span>
+    </button>
+
+    <!-- Results Section -->
+    <div id="resultsContainer" class="mt-8 border-t border-white/10 pt-6 hidden">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg font-bold text-white font-game">Jugadas Disponibles</h2>
+        <span id="resultsCount" class="text-xs bg-amber-400 text-slate-950 font-black px-3 py-1 rounded-full uppercase">0 palabras</span>
       </div>
 
-      <div id="resultsList" class="space-y-4">
-        </div>
+      <div id="resultsList" class="space-y-6">
+        <!-- Results inject dynamically here -->
+      </div>
     </div>
 
   </main>
 
+  <!-- JavaScript Engine -->
   <script>
-    // 1. Spanish Scrabble Tile Point System
     const LETTER_SCORES = {
       'A': 1, 'E': 1, 'O': 1, 'I': 1, 'S': 1, 'N': 1, 'L': 1, 'R': 1, 'U': 1, 'T': 1,
       'D': 2, 'G': 2,
       'C': 3, 'B': 3, 'M': 3, 'P': 3,
       'H': 4, 'F': 4, 'V': 4, 'Y': 4,
-      'Q': 5,
-      'J': 8, 'Ñ': 8, 'X': 8,
+      'CH': 5, 'Q': 5,
+      'J': 8, 'LL': 8, 'Ñ': 8, 'RR': 8, 'X': 8,
       'Z': 10
     };
 
-    // Calculate Scrabble score for a word
-    function getWordScore(word) {
-      return word.toUpperCase().split('').reduce((acc, char) => acc + (LETTER_SCORES[char] || 0), 0);
-    }
+    let DICTIONARY = [];
 
-    // 2. Starter Spanish Word List (Expandable with full dictionary file later)
-    const DICTIONARY = [
-      "ARBOL", "BARCO", "CABRA", "CASA", "SOL", "LUNA", "PALABRA", "JUEGO",
-      "TABLERO", "PUNTOS", "BARCA", "BOLA", "ROBA", "ROBO", "LOBOS", "BLUSA",
-      "BRAZO", "ZAPATO", "QUESO", "FOCO", "HOYA", "VIAJE", "AZUL", "AMOR",
-      "ROMA", "MORA", "RAMO", "ARMANDO", "BLANCO", "NEGRO", "COLOR", "TIERRA",
-      "CIELO", "AGUA", "FUEGO", "VIENTO", "CAMINO", "VIDA", "TIEMPO", "MANO"
-    ];
+    async function loadDictionary() {
+      const searchBtn = document.getElementById('searchBtn');
+      searchBtn.disabled = true;
+      searchBtn.querySelector('span').textContent = 'CARGANDO DICCIONARIO...';
 
-    // Helper: Build a frequency map of characters
-    function getLetterCounts(str) {
-      const map = {};
-      for (const char of str.toUpperCase()) {
-        map[char] = (map[char] || 0) + 1;
+      try {
+        const response = await fetch('./words.json');
+        DICTIONARY = await response.json();
+        searchBtn.disabled = false;
+        searchBtn.querySelector('span').textContent = 'BUSCAR JUGADAS';
+      } catch (err) {
+        console.error('Error cargando diccionario:', err);
+        searchBtn.querySelector('span').textContent = 'ERROR AL CARGAR DICCIONARIO';
       }
-      return map;
+    }
+    loadDictionary();
+
+    function tokenize(str) {
+      const tokens = [];
+      const upper = str.toUpperCase();
+      let i = 0;
+      while (i < upper.length) {
+        const twoChar = upper.substr(i, 2);
+        if (['CH', 'LL', 'RR'].includes(twoChar)) {
+          tokens.push(twoChar);
+          i += 2;
+        } else {
+          tokens.push(upper[i]);
+          i += 1;
+        }
+      }
+      return tokens;
     }
 
-    // Main Solver Logic
-    function solveWords(rack, startsWith = "", contains = "") {
-      rack = rack.toUpperCase();
-      startsWith = startsWith.toUpperCase();
-      contains = contains.toUpperCase();
+    function getWordScore(word) {
+      return tokenize(word).reduce((acc, t) => acc + (LETTER_SCORES[t] || 0), 0);
+    }
 
+    function getTokenCounts(str) {
+      const counts = {};
+      for (const t of tokenize(str)) {
+        counts[t] = (counts[t] || 0) + 1;
+      }
+      return counts;
+    }
+
+    function solveWords(rack, startsWith = "", contains = "") {
+      const cleanRack = rack.toUpperCase().replace(/[\?\*]/g, '');
       const wildcards = (rack.match(/[\?\*]/g) || []).length;
-      const rackCounts = getLetterCounts(rack.replace(/[\?\*]/g, ''));
+      const rackCounts = getTokenCounts(cleanRack);
+
+      const sw = startsWith.toUpperCase();
+      const ct = contains.toUpperCase();
 
       return DICTIONARY.filter(word => {
-        const upperWord = word.toUpperCase();
+        const upper = word.toUpperCase();
+        if (sw && !upper.startsWith(sw)) return false;
+        if (ct && !upper.includes(ct)) return false;
 
-        // Check optional filters
-        if (startsWith && !upperWord.startsWith(startsWith)) return false;
-        if (contains && !upperWord.includes(contains)) return false;
-
-        // Check if word can be formed from available rack letters + wildcards
-        const wordCounts = getLetterCounts(upperWord);
+        const wordCounts = getTokenCounts(upper);
         let neededWildcards = 0;
 
-        for (const letter in wordCounts) {
-          const available = rackCounts[letter] || 0;
-          if (wordCounts[letter] > available) {
-            neededWildcards += (wordCounts[letter] - available);
+        for (const t in wordCounts) {
+          const available = rackCounts[t] || 0;
+          if (wordCounts[t] > available) {
+            neededWildcards += (wordCounts[t] - available);
           }
         }
-
         return neededWildcards <= wildcards;
       });
     }
 
-    // DOM Interaction
     const searchBtn = document.getElementById('searchBtn');
     const lettersInput = document.getElementById('lettersInput');
     const startsWithInput = document.getElementById('startsWithInput');
@@ -144,52 +206,64 @@
     const resultsContainer = document.getElementById('resultsContainer');
     const resultsList = document.getElementById('resultsList');
     const resultsCount = document.getElementById('resultsCount');
+    const clearBtn = document.getElementById('clearBtn');
+
+    lettersInput.addEventListener('input', () => {
+      clearBtn.classList.toggle('hidden', !lettersInput.value);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      lettersInput.value = '';
+      clearBtn.classList.add('hidden');
+      lettersInput.focus();
+    });
 
     function performSearch() {
       const letters = lettersInput.value.trim();
-      if (!letters) return;
+      if (!letters || DICTIONARY.length === 0) return;
 
       const matches = solveWords(letters, startsWithInput.value.trim(), containsInput.value.trim());
-
-      // Sort by length descending, then by score descending
       matches.sort((a, b) => b.length - a.length || getWordScore(b) - getWordScore(a));
 
-      // Group matches by word length
       const grouped = {};
       matches.forEach(word => {
-        const len = word.length;
+        const len = tokenize(word).length;
         if (!grouped[len]) grouped[len] = [];
         grouped[len].push(word);
       });
 
-      // Render results
       resultsList.innerHTML = '';
       resultsCount.textContent = `${matches.length} palabras`;
 
       if (matches.length === 0) {
-        resultsList.innerHTML = '<p class="text-sm text-slate-400 italic">No se encontraron palabras.</p>';
+        resultsList.innerHTML = '<p class="text-slate-400 italic text-center py-4">No se encontraron palabras con esas letras.</p>';
       } else {
         Object.keys(grouped).sort((a, b) => b - a).forEach(length => {
           const groupDiv = document.createElement('div');
-          groupDiv.className = 'space-y-2';
+          groupDiv.className = 'space-y-3';
 
           const title = document.createElement('h3');
-          title.className = 'text-xs font-bold text-slate-400 tracking-wider uppercase';
-          title.textContent = `${length} Letras`;
+          title.className = 'text-xs font-bold text-amber-300 tracking-wider uppercase flex items-center space-x-2';
+          title.innerHTML = `<span>Palabras de ${length} Letras</span><span class="h-[1px] flex-1 bg-white/10"></span>`;
           groupDiv.appendChild(title);
 
           const grid = document.createElement('div');
-          grid.className = 'flex flex-wrap gap-2';
+          grid.className = 'flex flex-wrap gap-3';
 
           grouped[length].forEach(word => {
             const score = getWordScore(word);
-            const badge = document.createElement('div');
-            badge.className = 'flex items-center space-x-1 bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1 text-sm font-medium';
-            badge.innerHTML = `
-              <span class="text-slate-800">${word}</span>
-              <span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-1 rounded">${score}</span>
+            const raeUrl = `https://dle.rae.es/${encodeURIComponent(word.toLowerCase())}`;
+
+            const tile = document.createElement('a');
+            tile.href = raeUrl;
+            tile.target = '_blank';
+            tile.title = 'Ver en RAE';
+            tile.className = 'scrabble-tile inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg text-slate-900 font-bold border border-amber-200/80 cursor-pointer no-underline select-none';
+            tile.innerHTML = `
+              <span class="tracking-wider text-base">${word}</span>
+              <span class="text-[10px] font-black text-amber-800 bg-amber-200/80 px-1 py-0.5 rounded shadow-inner">${score}</span>
             `;
-            grid.appendChild(badge);
+            grid.appendChild(tile);
           });
 
           groupDiv.appendChild(grid);
@@ -200,7 +274,6 @@
       resultsContainer.classList.remove('hidden');
     }
 
-    // Trigger search on button click or Enter key
     searchBtn.addEventListener('click', performSearch);
     lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') performSearch(); });
   </script>
