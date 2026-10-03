@@ -1,453 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- Primary SEO Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formar Palabras con Letras | Buscador Scrabble y Apalabrados</title>
-  <meta name="title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
-  <meta name="description" content="Descifrador de palabras y buscador de jugadas para Scrabble y Apalabrados. Introduce tus letras y comodines para encontrar las mejores palabras y puntuaciones oficiales." />
-  <meta name="keywords" content="formar palabras, descifrador de palabras, buscar palabras con letras, solucionador scrabble, apalabrados trucos, palabras con comodin, anagramas en español" />
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="Spanish" />
-  <link rel="canonical" href="https://formarpalabra.com/" />
-
-  <!-- Open Graph / Facebook / WhatsApp -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://formarpalabra.com/" />
-  <meta property="og:title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
-  <meta property="og:description" content="Encuentra al instante todas las combinaciones y palabras posibles con tus letras y comodines en español." />
-  <meta property="og:image" content="https://formarpalabra.com/og-image.jpg" />
-
-  <!-- Twitter Card -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://formarpalabra.com/" />
-  <meta property="twitter:title" content="Formar Palabras con Letras | Buscador Scrabble y Apalabrados" />
-  <meta property="twitter:description" content="Descifrador y buscador de palabras para Scrabble en Español y Apalabrados." />
-  <meta property="twitter:image" content="https://formarpalabra.com/og-image.jpg" />
-
-  <!-- Structured Data: WebApplication Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Formar Palabras - Buscador Scrabble y Apalabrados",
-    "url": "https://formarpalabra.com/",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "All",
-    "description": "Herramienta gratuita para formar y descifrar palabras con letras desordenadas y comodines en español.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
-
-  <!-- Tailwind CSS & Google Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
-  
+  <meta name="description" content="Descifrador de palabras y buscador de jugadas para Scrabble y Apalabrados. Introduce tus letras y comodines para encontrar palabras y puntuaciones en español.">
+  <meta name="keywords" content="formar palabras, descifrador de palabras, Scrabble español, Apalabrados, anagramas, palabras con letras, comodines">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://formarpalabra.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://formarpalabra.com/">
+  <meta property="og:title" content="Formar Palabras con Letras">
+  <meta property="og:description" content="Encuentra palabras válidas para Scrabble y Apalabrados con tus letras.">
+  <meta property="og:image" content="https://formarpalabra.com/Scrabble_game_in_progress.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Formar Palabras","url":"https://formarpalabra.com/","applicationCategory":"GameApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-game { font-family: 'Fredoka', cursive, sans-serif; }
-
-    /* 3D Wood Tile Styling */
-    .rack-tile {
-      background: linear-gradient(145deg, #fef08a, #eab308);
-      box-shadow: 0 4px 0 #a16207, 0 6px 12px rgba(0,0,0,0.35);
-      border: 1px solid #ca8a04;
-      transition: all 0.12s ease-out;
-    }
-    .rack-tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 0 #a16207, 0 10px 16px rgba(0,0,0,0.4);
-    }
-    .result-card {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      transition: all 0.15s ease;
-    }
-    .result-card:hover {
-      background: rgba(51, 65, 85, 0.9);
-      border-color: #facc15;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
+    :root{--ink:#f8fafc;--muted:#a5b4fc;--panel:#111827;--panel2:#0f172a;--gold:#facc15;--green:#34d399;--line:#334155}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:linear-gradient(180deg,#020617,#172554 55%,#020617);font-family:Arial,Helvetica,sans-serif;line-height:1.5}a{color:inherit}.wrap{width:min(960px,calc(100% - 28px));margin:auto}
+    .hero{min-height:360px;padding:34px 0 44px;background-color:#164e63;background-image:linear-gradient(180deg,rgba(2,6,23,.36),rgba(2,6,23,.94)),url('Scrabble_game_in_progress.jpg');background-position:center;background-size:cover;background-repeat:no-repeat;display:flex;align-items:center}.hero-inner{text-align:center;width:100%}.status{display:inline-block;color:#fde68a;background:#111827cc;border:1px solid #facc154d;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;text-transform:uppercase}.hero h1{font-size:clamp(40px,8vw,76px);line-height:1;margin:18px 0 10px;color:var(--gold);text-shadow:0 4px 20px #000}.hero h1 span{color:#fff}.hero p{margin:0;color:#e2e8f0;font-weight:700}.panel{background:#0f172ada;border:1px solid #6366f14d;border-radius:22px;padding:24px;margin-top:-34px;position:relative;box-shadow:0 18px 50px #0008}.label{display:block;color:#facc15;text-transform:uppercase;font-size:12px;font-weight:800;letter-spacing:.08em;margin-bottom:7px}.rack{min-height:68px;padding:12px;border:2px dashed #6366f14d;border-radius:14px;background:#020617b8;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tile{background:linear-gradient(145deg,#fef08a,#eab308);color:#172554;border:1px solid #ca8a04;border-radius:9px;padding:8px 12px;font-size:22px;font-weight:900;box-shadow:0 3px 0 #a16207}.input{width:100%;background:#020617;border:1px solid #6366f180;color:#fde68a;border-radius:13px;padding:14px;font-size:22px;font-weight:800;text-transform:uppercase}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.grid input{min-width:0;background:#020617;border:1px solid var(--line);color:#fff;border-radius:10px;padding:11px;text-transform:uppercase}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;cursor:pointer}.primary{width:100%;background:var(--gold);color:#172554;font-size:18px}.secondary{background:#1e293b;color:#fff;border:1px solid #475569}.tools{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.section{background:#0f172acc;border:1px solid #ffffff18;border-radius:18px;padding:22px;margin:22px 0}.section h2,.section h3{margin-top:0}.section h2{color:var(--gold)}.section h3{color:#fff}.small{font-size:13px;color:#cbd5e1}.results{border-top:1px solid #ffffff1c;margin-top:22px;padding-top:20px}.result-group{margin:18px 0}.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.word{display:flex;justify-content:space-between;gap:8px;background:#1e293bcc;border:1px solid #ffffff14;border-radius:10px;padding:10px;text-decoration:none}.score{background:var(--gold);color:#172554;border-radius:6px;padding:1px 6px;font-weight:900}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.card{background:#020617aa;border:1px solid #ffffff14;border-radius:14px;padding:17px}.support{background:linear-gradient(135deg,#064e3b,#0f172a)}.support .btn{background:#34d399;color:#052e16}.signup{background:#fff;color:#172554}.signup h2{color:#172554}.signup p{color:#475569}.mc-form{max-width:600px}.mc-form input[type=email]{width:100%;padding:12px;border:1px solid #94a3b8;border-radius:8px;margin:6px 0 12px}.mc-form input[type=submit]{background:#2563eb;color:#fff;border:0;border-radius:8px;padding:12px 18px;font-weight:800;cursor:pointer}.footer{text-align:center;color:#94a3b8;font-size:12px;padding:28px 0}@media(max-width:650px){.grid{grid-template-columns:1fr}.panel{padding:17px}}
   </style>
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
-<body class="bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 text-slate-100 min-h-screen flex flex-col items-center px-4 py-8">
-
-  <!-- Header Section -->
-  <header class="w-full max-w-3xl text-center mb-6">
-    <div class="inline-flex items-center space-x-2 mb-3 bg-amber-400/10 border border-amber-400/20 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider text-amber-300 uppercase shadow-inner">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="dictStatus">Cargando Léxico Oficial...</span>
-    </div>
-    <h1 class="text-4xl sm:text-6xl font-black text-amber-400 tracking-tight font-game drop-shadow-[0_4px_12px_rgba(251,191,36,0.3)]">
-      Formar<span class="text-white">Palabras</span>
-    </h1>
-    <p class="text-sm sm:text-base text-slate-300 mt-2 font-bold tracking-wide">
-      Descifrador rápido de jugadas maestras para <span class="text-amber-300 underline decoration-amber-400/50">Scrabble</span> y <span class="text-emerald-400 underline decoration-emerald-400/50">Apalabrados</span>
-    </p>
-  </header>
-
-  <!-- Main Game Panel -->
-  <main class="w-full max-w-3xl space-y-6">
-
-    <!-- Primary Workspace Card -->
-    <div class="bg-slate-900/80 backdrop-blur-xl rounded-3xl border-2 border-indigo-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 sm:p-8 space-y-6">
-
-      <!-- Interactive Visual Rack -->
-      <div class="space-y-2">
-        <div class="flex justify-between items-center px-1">
-          <label class="text-xs font-black uppercase tracking-widest text-amber-400 font-game">Atril en Vivo</label>
-          <span class="text-xs text-slate-400 font-bold">Usa <code class="bg-white/10 text-amber-300 px-1.5 py-0.5 rounded font-mono font-black">?</code> o <code class="bg-white/10 text-amber-300 px-1.5 py-0.5 rounded font-mono font-black">*</code> para comodín</span>
-        </div>
-        
-        <div id="visualRack" class="flex flex-wrap gap-2.5 p-3.5 bg-slate-950/70 rounded-2xl border-2 border-dashed border-indigo-500/20 min-h-[76px] items-center justify-start">
-          <span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>
-        </div>
-      </div>
-
-      <!-- Letter Input -->
-      <div class="relative">
-        <input 
-          id="lettersInput" 
-          type="text" 
-          maxlength="15"
-          placeholder="ESCRIBE TUS LETRAS (EJ. ARBOL??)" 
-          class="w-full text-2xl sm:text-3xl font-black uppercase tracking-widest px-5 py-4 bg-slate-950 border-2 border-indigo-500/40 rounded-2xl focus:border-amber-400 focus:ring-4 focus:ring-amber-400/20 focus:outline-none placeholder-slate-600 text-amber-300 transition duration-150"
-          autocomplete="off"
-        />
-        <button id="clearBtn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-black text-xs px-3.5 py-2 rounded-xl transition border border-slate-700">
-          BORRAR
-        </button>
-      </div>
-
-      <!-- Advanced Match Filters -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div>
-          <label for="startsWithInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Empieza por</label>
-          <input id="startsWithInput" type="text" placeholder="Ej. DES" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
-        </div>
-        <div>
-          <label for="containsInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Contiene</label>
-          <input id="containsInput" type="text" placeholder="Ej. RR" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
-        </div>
-        <div>
-          <label for="endsWithInput" class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1">Termina en</label>
-          <input id="endsWithInput" type="text" placeholder="Ej. ON" class="w-full uppercase px-3.5 py-2.5 bg-slate-950/80 border border-slate-700 rounded-xl text-sm font-bold text-white focus:border-amber-400 focus:outline-none placeholder-slate-600" />
-        </div>
-      </div>
-
-      <!-- Submit Action Button -->
-      <button 
-        id="searchBtn" 
-        class="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xl py-4 rounded-2xl transition duration-150 shadow-[0_8px_25px_rgba(245,158,11,0.3)] active:translate-y-0.5 font-game flex items-center justify-center space-x-2"
-      >
-        <span>BUSCAR COMBINACIONES</span>
-      </button>
-
-      <!-- Results Section -->
-      <div id="resultsSection" class="border-t border-white/10 pt-6 hidden space-y-6">
-        <div class="flex items-center justify-between pb-4 border-b border-white/5">
-          <div>
-            <h2 class="text-xl font-black text-white font-game">Jugadas Válidas</h2>
-            <p class="text-xs text-slate-400 font-semibold">Ordenadas por puntuación oficial</p>
-          </div>
-          <span id="resultsCount" class="text-xs font-black bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full uppercase tracking-wider font-game">
-            0 jugadas
-          </span>
-        </div>
-
-        <div id="resultsList" class="space-y-8">
-          <!-- Results injected dynamically -->
-        </div>
-      </div>
-
-    </div>
-
-    <!-- SEO & Educational Content Section (Below the fold) -->
-    <article class="w-full bg-slate-900/50 backdrop-blur border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 text-slate-300 text-sm leading-relaxed">
-      
-      <header>
-        <h2 class="text-xl font-black text-amber-400 font-game mb-2">
-          ¿Cómo usar el buscador para formar palabras?
-        </h2>
-        <p>
-          Nuestra herramienta te ayuda a encontrar todas las palabras válidas que puedes formar con un conjunto de letras dado. Está optimizada específicamente para el léxico oficial de <strong>Scrabble en Español (FISE)</strong> y <strong>Apalabrados</strong>.
-        </p>
-      </header>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-          <h3 class="font-bold text-white text-base">Uso de Comodines (? o *)</h3>
-          <p class="text-xs text-slate-400">
-            Si tienes fichas en blanco (comodines), introduce el símbolo <code>?</code> o <code>*</code>. El buscador probará automáticamente todas las letras del abecedario para encontrar la jugada de mayor puntaje.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-1">
-          <h3 class="font-bold text-white text-base">Fichas Especiales (LL, RR, CH, Ñ)</h3>
-          <p class="text-xs text-slate-400">
-            En el Scrabble en español, dígrafos como <strong>LL</strong> y <strong>RR</strong> cuentan como fichas individuales de 8 puntos. Nuestro sistema calcula automáticamente estos valores especiales.
-          </p>
-        </div>
-      </div>
-
-      <!-- FAQ Section -->
-      <section class="space-y-4 pt-4 border-t border-white/5">
-        <h3 class="text-base font-bold text-white font-game uppercase tracking-wider">Preguntas Frecuentes</h3>
-        
-        <details class="group bg-slate-950/40 rounded-xl p-4 border border-slate-800 cursor-pointer">
-          <summary class="font-bold text-slate-200 list-none flex justify-between items-center">
-            <span>¿Qué diccionario utiliza este descifrador?</span>
-            <span class="text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-          </summary>
-          <p class="text-xs text-slate-400 mt-2">
-            Utiliza la base léxica estándar del español respaldada por la Real Academia Española (RAE) y las listas de competencia oficiales de la FISE (Federación Internacional de Scrabble en Español).
-          </p>
-        </details>
-
-        <details class="group bg-slate-950/40 rounded-xl p-4 border border-slate-800 cursor-pointer">
-          <summary class="font-bold text-slate-200 list-none flex justify-between items-center">
-            <span>¿Cómo ganar más puntos en Apalabrados y Scrabble?</span>
-            <span class="text-amber-400 group-open:rotate-180 transition-transform">▼</span>
-          </summary>
-          <p class="text-xs text-slate-400 mt-2">
-            Aprovecha siempre las casillas de Doble y Triple Tanto de Letra usando fichas de alto valor como la <strong>Z (10 pts)</strong>, <strong>Ñ (8 pts)</strong>, o <strong>X (8 pts)</strong>, y busca colocar palabras cortas de 2 letras que conecten múltiples líneas a la vez.
-          </p>
-        </details>
-      </section>
-
-    </article>
-
-    <!-- Scoring Key / Cheatsheet Card -->
-    <section class="w-full bg-slate-900/50 backdrop-blur border border-white/10 rounded-3xl p-6 sm:p-7 space-y-4">
-      <h3 class="text-xs font-black uppercase tracking-widest text-amber-400 font-game">Puntuación Oficial de Fichas Clave</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
-          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">Z</div>
-          <div><p class="font-black text-white text-sm">10 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
-        </div>
-        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
-          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">Ñ</div>
-          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 ficha</p></div>
-        </div>
-        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
-          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-base font-game">X / J</div>
-          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">1 c/u</p></div>
-        </div>
-        <div class="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
-          <div class="w-9 h-10 rack-tile rounded-xl flex items-center justify-center font-black text-slate-950 text-sm font-game">LL/RR</div>
-          <div><p class="font-black text-white text-sm">8 PTS</p><p class="text-[10px] text-slate-400 font-bold">Doble ficha</p></div>
-        </div>
-      </div>
+<body>
+  <header class="hero"><div class="wrap hero-inner"><div class="status" id="dictStatus">Cargando léxico oficial...</div><h1>Formar<span>Palabras</span></h1><p>Descifrador rápido de jugadas para Scrabble y Apalabrados</p></div></header>
+  <main class="wrap">
+    <section class="panel" aria-label="Buscador de palabras">
+      <label class="label" for="lettersInput">Atril en vivo</label>
+      <div id="visualRack" class="rack"><span class="small">Escribe letras abajo para cargar tu atril...</span></div>
+      <div style="margin-top:16px"><input id="lettersInput" class="input" maxlength="15" placeholder="ESCRIBE TUS LETRAS (EJ. ARBOL??)" autocomplete="off"></div>
+      <div class="grid"><input id="startsWithInput" placeholder="Empieza por"><input id="containsInput" placeholder="Contiene"><input id="endsWithInput" placeholder="Termina en"></div>
+      <button id="searchBtn" class="btn primary">BUSCAR COMBINACIONES</button>
+      <div class="tools"><button id="saveBtn" class="btn secondary">Guardar búsqueda</button><button id="shareBtn" class="btn secondary">Compartir</button><button id="clearBtn" class="btn secondary">Borrar</button></div>
+      <div id="savedBox" class="small" style="margin-top:12px"></div>
+      <div id="resultsSection" class="results" hidden><h2>Jugadas válidas</h2><p class="small" id="resultsCount"></p><div id="resultsList"></div></div>
     </section>
-
+    <section class="section support"><h2>¿Te ha servido FormarPalabra?</h2><p>Ayuda a mantener este buscador gratuito y sin complicaciones.</p><div class="tools"><div><p style="margin:0 0 6px;font-weight:900;color:#facc15">Buy me a coffee · Cómprame un café</p><stripe-buy-button buy-button-id="buy_btn_1UMImrAeH8yvhSODy3VwRVeS" publishable-key="pk_live_51UMHljAeH8yvhSODrJJLfVxelMdKd44ckFEyLPLZvBa4pk8ur3t6uhOLD5XEw5tXKIzU8LL0TmqFfRA96LzoyTjz008YCLhiLF"></stripe-buy-button></div></div><p class="small">Aportación sugerida: USD 4. Puedes elegir otra cantidad en Stripe.</p></section>
+    <section class="section signup"><h2>Recibe retos y novedades de palabras</h2><p>Un correo ocasional con retos, trucos y nuevas funciones de FormarPalabra.</p><div id="mc_embed_shell"><div id="mc_embed_signup"><form action="https://FormarPalabra.us5.list-manage.com/subscribe/post?u=bb5de61450a97fa2b847347e2&amp;id=e95d922838&amp;f_id=00e140e0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"><div id="mc_embed_signup_scroll"><label for="mce-EMAIL">Correo electrónico <span aria-hidden="true">*</span></label><input type="email" name="EMAIL" id="mce-EMAIL" required><div aria-hidden="true" style="position:absolute;left:-5000px"><input type="text" name="b_bb5de61450a97fa2b847347e2_e95d922838" tabindex="-1" value=""></div><input type="submit" name="subscribe" id="mc-embedded-subscribe" value="Suscribirme"></div></form></div></div></section>
+    <section class="section"><h2>FormarPalabra Pro — próximamente</h2><div class="cards"><div class="card"><h3>Sin anuncios</h3><p class="small">Una experiencia limpia para encontrar tu jugada.</p></div><div class="card"><h3>Búsquedas guardadas</h3><p class="small">Conserva tus combinaciones y vuelve a ellas rápidamente.</p></div><div class="card"><h3>Filtros avanzados</h3><p class="small">Más control sobre longitud, comodines y puntuación.</p></div></div></section>
+    <section class="section"><h2>¿Cómo usar el buscador para formar palabras?</h2><p>Introduce las letras disponibles y utiliza <strong>?</strong> o <strong>*</strong> como comodín. Puedes indicar por qué letras empieza, qué contiene o cómo termina la palabra. Los resultados se ordenan por longitud y puntuación calculada.</p><h3>Diccionario y significado</h3><p>Las jugadas enlazan con la consulta correspondiente en el Diccionario de la lengua española de la RAE.</p></section>
   </main>
-
-  <footer class="mt-8 py-4 text-center text-xs text-slate-500">
-    <p>© 2026 FormarPalabras. Buscador de anagramas y validador léxico para Scrabble y Apalabrados.</p>
-  </footer>
-
-  <!-- Application Logic -->
+  <footer class="footer">© 2026 FormarPalabras. Buscador de anagramas y validador léxico para Scrabble y Apalabrados.</footer>
   <script>
-    const SCORES_SCRABBLE = {
-      'A': 1, 'E': 1, 'O': 1, 'I': 1, 'S': 1, 'N': 1, 'L': 1, 'R': 1, 'U': 1, 'T': 1,
-      'D': 2, 'G': 2,
-      'C': 3, 'B': 3, 'M': 3, 'P': 3,
-      'H': 4, 'F': 4, 'V': 4, 'Y': 4,
-      'CH': 5, 'Q': 5,
-      'J': 8, 'LL': 8, 'Ñ': 8, 'RR': 8, 'X': 8,
-      'Z': 10
-    };
-
-    let DICTIONARY = [];
-
-    async function initDictionary() {
-      const status = document.getElementById('dictStatus');
-      try {
-        const res = await fetch('./words.json');
-        DICTIONARY = await res.json();
-        status.textContent = `${DICTIONARY.length.toLocaleString()} PALABRAS CARGADAS`;
-      } catch(e) {
-        status.textContent = `MODO PRUEBA ACTIVO`;
-        DICTIONARY = ["ARBOL", "PERRO", "GATO", "CASA", "BARCO", "ZAPATO", "QUESO", "LLAVE", "AMOR", "VIDA"];
-      }
-    }
-    initDictionary();
-
-    function tokenize(str) {
-      const tokens = [];
-      const upper = str.toUpperCase();
-      let i = 0;
-      while (i < upper.length) {
-        const pair = upper.substr(i, 2);
-        if (['CH', 'LL', 'RR'].includes(pair)) {
-          tokens.push(pair);
-          i += 2;
-        } else {
-          tokens.push(upper[i]);
-          i += 1;
-        }
-      }
-      return tokens;
-    }
-
-    function getWordScore(word) {
-      return tokenize(word).reduce((acc, t) => acc + (SCORES_SCRABBLE[t] || 0), 0);
-    }
-
-    function getTokenCounts(str) {
-      const counts = {};
-      for (const t of tokenize(str)) {
-        counts[t] = (counts[t] || 0) + 1;
-      }
-      return counts;
-    }
-
-    // Dynamic Live Rack
-    const lettersInput = document.getElementById('lettersInput');
-    const visualRack = document.getElementById('visualRack');
-    const clearBtn = document.getElementById('clearBtn');
-
-    lettersInput.addEventListener('input', () => {
-      const val = lettersInput.value.trim().toUpperCase();
-      clearBtn.classList.toggle('hidden', !val);
-      visualRack.innerHTML = '';
-
-      if (!val) {
-        visualRack.innerHTML = '<span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>';
-        return;
-      }
-
-      const tokens = tokenize(val);
-      tokens.forEach(tok => {
-        const isWild = tok === '?' || tok === '*';
-        const tile = document.createElement('div');
-        tile.className = 'w-11 h-12 rack-tile rounded-xl flex flex-col items-center justify-center font-game font-black text-slate-950 relative select-none';
-        tile.innerHTML = `
-          <span class="text-base">${isWild ? '★' : tok}</span>
-          <span class="text-[9px] absolute bottom-1 right-1.5 font-black text-amber-950/90">${isWild ? '0' : (SCORES_SCRABBLE[tok] || 0)}</span>
-        `;
-        visualRack.appendChild(tile);
-      });
-    });
-
-    clearBtn.addEventListener('click', () => {
-      lettersInput.value = '';
-      visualRack.innerHTML = '<span class="text-xs text-slate-500 italic font-semibold px-2">Escribe letras abajo para cargar tu atril...</span>';
-      clearBtn.classList.add('hidden');
-      lettersInput.focus();
-    });
-
-    // Solve Action
-    function solve() {
-      const rawRack = lettersInput.value.trim().toUpperCase();
-      if (!rawRack || DICTIONARY.length === 0) return;
-
-      const sw = document.getElementById('startsWithInput').value.trim().toUpperCase();
-      const ct = document.getElementById('containsInput').value.trim().toUpperCase();
-      const ew = document.getElementById('endsWithInput').value.trim().toUpperCase();
-
-      const wildcards = (rawRack.match(/[\?\*]/g) || []).length;
-      const cleanRack = rawRack.replace(/[\?\*]/g, '');
-      const rackCounts = getTokenCounts(cleanRack);
-
-      const matches = DICTIONARY.filter(word => {
-        const upper = word.toUpperCase();
-        if (sw && !upper.startsWith(sw)) return false;
-        if (ct && !upper.includes(ct)) return false;
-        if (ew && !upper.endsWith(ew)) return false;
-
-        const wordCounts = getTokenCounts(upper);
-        let neededWildcards = 0;
-
-        for (const t in wordCounts) {
-          const available = rackCounts[t] || 0;
-          if (wordCounts[t] > available) {
-            neededWildcards += (wordCounts[t] - available);
-          }
-        }
-        return neededWildcards <= wildcards;
-      });
-
-      matches.sort((a, b) => getWordScore(b) - getWordScore(a) || b.length - a.length);
-
-      renderResults(matches);
-    }
-
-    function renderResults(matches) {
-      const resultsSection = document.getElementById('resultsSection');
-      const resultsList = document.getElementById('resultsList');
-      const resultsCount = document.getElementById('resultsCount');
-
-      resultsList.innerHTML = '';
-      resultsCount.textContent = `${matches.length} jugadas`;
-
-      if (matches.length === 0) {
-        resultsList.innerHTML = '<div class="text-center py-8 text-slate-400 text-sm font-bold">No se encontraron palabras válidas con estas letras y filtros.</div>';
-        resultsSection.classList.remove('hidden');
-        return;
-      }
-
-      const grouped = {};
-      matches.forEach(w => {
-        const len = tokenize(w).length;
-        if (!grouped[len]) grouped[len] = [];
-        grouped[len].push(w);
-      });
-
-      Object.keys(grouped).sort((a, b) => b - a).forEach(len => {
-        const groupContainer = document.createElement('div');
-        groupContainer.className = 'space-y-3';
-
-        groupContainer.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <span class="text-xs font-black uppercase text-amber-400 tracking-wider font-game">${len} Letras</span>
-            <span class="h-[1px] flex-1 bg-white/10"></span>
-            <span class="text-[11px] font-bold text-slate-400">${grouped[len].length} opciones</span>
-          </div>
-        `;
-
-        const cardsGrid = document.createElement('div');
-        cardsGrid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5';
-
-        grouped[len].forEach(word => {
-          const score = getWordScore(word);
-          const raeUrl = `https://dle.rae.es/${encodeURIComponent(word.toLowerCase())}`;
-
-          const card = document.createElement('a');
-          card.href = raeUrl;
-          card.target = '_blank';
-          card.title = 'Ver significado en la RAE';
-          card.className = 'result-card flex items-center justify-between p-3 rounded-2xl text-decoration-none group';
-          card.innerHTML = `
-            <span class="font-black text-slate-100 group-hover:text-amber-300 truncate pr-2 text-sm tracking-wider">
-              ${word}
-            </span>
-            <span class="text-xs font-black px-2 py-0.5 rounded-lg bg-amber-400 text-slate-950 shadow-sm shrink-0 font-game">
-              ${score}
-            </span>
-          `;
-          cardsGrid.appendChild(card);
-        });
-
-        groupContainer.appendChild(cardsGrid);
-        resultsList.appendChild(groupContainer);
-      });
-
-      resultsSection.classList.remove('hidden');
-    }
-
-    document.getElementById('searchBtn').addEventListener('click', solve);
-    lettersInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') solve(); });
+    const SCORES={A:1,E:1,O:1,I:1,S:1,N:1,L:1,R:1,U:1,T:1,D:2,G:2,C:3,B:3,M:3,P:3,H:4,F:4,V:4,Y:4,Q:5,J:8,LL:8,Ñ:8,RR:8,X:8,Z:10};let DICTIONARY=[];const $=id=>document.getElementById(id), letters=$('lettersInput');
+    function score(word){return [...word.toUpperCase()].reduce((n,c)=>n+(SCORES[c]||0),0)}
+    function rack(){const v=letters.value.toUpperCase();$('visualRack').innerHTML=v?v.split('').map(c=>`<span class="tile">${c}</span>`).join(''):'<span class="small">Escribe letras abajo para cargar tu atril...</span>'}
+    function canMake(word, available){let pool=available.split(''),wild=pool.filter(c=>c==='?'||c==='*').length;pool=pool.filter(c=>c!=='?'&&c!=='*');for(const c of word){const i=pool.indexOf(c);if(i>=0)pool.splice(i,1);else if(wild)wild--;else return false}return true}
+    function solve(){const raw=letters.value.toUpperCase().replace(/[^A-ZÑ?*]/g,'');letters.value=raw;const start=$('startsWithInput').value.toUpperCase(),inside=$('containsInput').value.toUpperCase(),end=$('endsWithInput').value.toUpperCase();const found=DICTIONARY.filter(w=>w&&w.length<=15&&canMake(w.toUpperCase(),raw)&&(!start||w.startsWith(start))&&(!inside||w.includes(inside))&&(!end||w.endsWith(end))).sort((a,b)=>score(b)-score(a)||b.length-a.length);$('resultsSection').hidden=false;$('resultsCount').textContent=`${found.length} jugadas encontradas`;const groups={};found.slice(0,300).forEach(w=>(groups[w.length]??=[]).push(w));$('resultsList').innerHTML=Object.keys(groups).sort((a,b)=>b-a).map(len=>`<div class="result-group"><h3>${len} letras</h3><div class="result-grid">${groups[len].map(w=>`<a class="word" href="https://dle.rae.es/${encodeURIComponent(w.toLowerCase())}" target="_blank" rel="noopener"><span>${w}</span><span class="score">${score(w)}</span></a>`).join('')}</div></div>`).join('')||'<p class="small">No se encontraron palabras con esos criterios.</p>';localStorage.setItem('fp-last-search',raw)}
+    function saved(){const s=JSON.parse(localStorage.getItem('fp-saved-searches')||'[]');$('savedBox').textContent=s.length?`Guardadas: ${s.join(' · ')}`:'Todavía no tienes búsquedas guardadas.'}
+    $('searchBtn').onclick=solve;letters.oninput=rack;letters.onkeyup=e=>{if(e.key==='Enter')solve()};$('clearBtn').onclick=()=>{letters.value='';rack();$('resultsSection').hidden=true};$('saveBtn').onclick=()=>{const v=letters.value.trim();if(!v)return;const s=JSON.parse(localStorage.getItem('fp-saved-searches')||'[]');if(!s.includes(v))s.unshift(v);localStorage.setItem('fp-saved-searches',JSON.stringify(s.slice(0,10)));saved()};$('shareBtn').onclick=async()=>{const u=location.href+(letters.value?`?letras=${encodeURIComponent(letters.value)}`:'');if(navigator.share)await navigator.share({title:'FormarPalabra',url:u});else{await navigator.clipboard.writeText(u);alert('Enlace copiado.')}};
+    const initial=new URLSearchParams(location.search).get('letras');if(initial){letters.value=initial;rack()}saved();fetch('./words.json').then(r=>r.json()).then(words=>{DICTIONARY=words.map(w=>String(w).toUpperCase()).filter(Boolean);$('dictStatus').textContent=`${DICTIONARY.length.toLocaleString()} PALABRAS CARGADAS`}).catch(()=>{$('dictStatus').textContent='Introduce tus letras para empezar'});
   </script>
 </body>
 </html>
